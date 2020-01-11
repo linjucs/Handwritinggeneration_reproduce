@@ -1,6 +1,10 @@
 # Handwriting Generation Reproduce 
 
 This repository is used to implement [this great paper](https://arxiv.org/pdf/1308.0850.pdf) by Alex Graves. 
+### Require
+```
+Pytorch > 0.4
+```
 
 ### train unconditional generation
 ```
