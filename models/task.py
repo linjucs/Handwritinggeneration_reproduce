@@ -17,7 +17,7 @@ def generate_unconditionally(random_seed=1):
         model = UnconditionalModel(use_cuda=use_cuda)
     
     model.load_state_dict(torch.load('../checkpoint/prediction_model'))
-    model.eval()
+    
     es = numpy.random.binomial(1, 0.8, 1)
     stroke = numpy.random.multivariate_normal([0.5, 0.5], [[0.1,-0.1],[-0.1,0.3]], 1)
     
@@ -25,7 +25,7 @@ def generate_unconditionally(random_seed=1):
     
     init_stroke = torch.tensor(init_stroke).float().cuda()
 
-    stroke = model.convert2strokes(init_stroke.squeeze(), seq_len)
+    stroke = model.generate_samples(init_stroke.squeeze(), seq_len)
     # Output:
     #   stroke - numpy 2D-array (T x 3)
     return stroke.squeeze(0).cpu().numpy()
@@ -44,7 +44,7 @@ def generate_conditionally(text='welcome to lyrebird', random_seed=1):
         model = ConditionalModel(use_cuda=use_cuda)
     
     model.load_state_dict(torch.load('../checkpoint/synthesis_model'))
-    model.eval()
+   
     es = numpy.random.binomial(1, 0.8, 1)
     stroke = numpy.random.multivariate_normal([0.5, 0.5], [[0.1,-0.1],[-0.1,0.3]], 1)
     
@@ -54,10 +54,11 @@ def generate_conditionally(text='welcome to lyrebird', random_seed=1):
     #init_stroke = torch.tensor([1, 0, 0])
     pkl_file = open('../char2int.pkl', 'rb')
     char2int = pickle.load(pkl_file)
+    #print(char2int)
     pkl_file.close()
     char2array = torch.from_numpy(numpy.array([char2int[x] for x in text])).long().cuda()
     char2array = char2array.unsqueeze(0)
-    stroke = model.generate_samples(init_stroke, char2array, seq_len)
+    stroke = model.generate_samples(init_stroke.squeeze(), char2array, seq_len)
     # Output:
     #   stroke - numpy 2D-array (T x 3)
     return stroke.squeeze(0).cpu().numpy()

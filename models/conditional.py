@@ -135,7 +135,7 @@ class ConditionalModel(nn.Module):
 		prev_state = (h1,c1,h2,c2,h3,c3)
 		
 		return e, pi, mu1, mu2, sig1, sig2, ro, prev_state, phi,  prev_offset, prev_w
-		#, phi
+	
 
 	def init_hidden(self, batch_size):
 		state = []
@@ -217,16 +217,14 @@ class ConditionalModel(nn.Module):
 			#print(e)
 			e = Bernoulli(e)
 			e = e.sample()
-			#e = e.unsqueeze(-1)
-			#print(e.shape, sample_mixture.shape)
+			
 			init_stroke = torch.cat((e, sample_mixture.cuda()), 1) # 1 x 3
 			
-			#print(init_stroke.shape)
+			
 			strokes.append(init_stroke)
-			#print(init_stroke)
+			
 			init_stroke = init_stroke.unsqueeze(0)
-			#print(init_stroke.shape)
-			#print(phi.max(1)[1].item(), char.shape[1], phi.max(1)[0].item())
+			
 			if phi.max(1)[1].item() > char.shape[1]-1: #exit
 				break
 		return torch.stack(strokes, 1)
