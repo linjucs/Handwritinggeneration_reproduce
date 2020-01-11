@@ -18,4 +18,4 @@ python train_conditional.py
  conditional generation <img src='generation_samples/g1.png'>
  conditional generation <img src='generation_samples/g2.png'>
  conditional generation <img src='generation_samples/g3.png'>
- conditional generation <img src='generation_samples/g4.png'>
+ unconditional generation <img src='generation_samples/g4.png'>
