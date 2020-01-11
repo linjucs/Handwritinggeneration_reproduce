@@ -127,7 +127,7 @@ class UnconditionalModel(nn.Module):
 		loss = torch.mean(torch.sum(loss, 0))
 		return loss
 
-	def convert2strokes(self, init_stroke, max_len):
+	def generate_samples(self, init_stroke, max_len):
 		prev_state = None
 		prev_strokes = []
 		init_stroke = init_stroke.unsqueeze(0).unsqueeze(0)
