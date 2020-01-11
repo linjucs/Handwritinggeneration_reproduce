@@ -11,4 +11,7 @@ python train_unconditional.py
 python train_conditional.py
 ```
 ### generation samples
- image<img src='generation_samples/g1.png'  width=200>
+ conditional generation <img src='generation_samples/g1.png'>
+ conditional generation <img src='generation_samples/g2.png'>
+ conditional generation <img src='generation_samples/g3.png'>
+ conditional generation <img src='generation_samples/g4.png'>
